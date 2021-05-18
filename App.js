@@ -57,6 +57,12 @@ export default function App() {
     }
   };
 
+  const resetQuiz = () => {
+    setchangeQuestion(0);
+    setshowScore(false);
+    setcountScore(0);
+  };
+
   return (
     <div className="app">
       {/* HINT: replace "false" with logic to display the 
@@ -64,7 +70,7 @@ export default function App() {
       {showScore ? (
         <div className="score-section">
           You scored {countScore} out of {questions.length}
-          <button>Reset?</button>
+          <button onClick={resetQuiz}>Reset?</button>
         </div>
       ) : (
         <>
