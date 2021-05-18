@@ -40,46 +40,49 @@ export default function App() {
     }
   ];
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [showScore, setShowScore] = useState(false);
-  const [score, setScore] = useState(0);
+  const [changeQuestion, setchangeQuestion] = useState(0);
+  const [showScore, setshowScore] = useState(false);
+  const [countScore, setcountScore] = useState(0);
 
-  const handleAnswerOptionClick = (isCorrect) => {
-    if (isCorrect) {
-      setScore(score + 1);
+  const handleChangeQuestion = (isCorrect) => {
+    const nxtQuestion = changeQuestion + 1;
+    setchangeQuestion(nxtQuestion);
+    console.log(questions.length);
+    if (nxtQuestion === questions.length) {
+      setshowScore(true);
     }
-
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < questions.length) {
-      setCurrentQuestion(nextQuestion);
-    } else {
-      setShowScore(true);
+    console.log(isCorrect);
+    if (isCorrect) {
+      setcountScore(countScore + 1);
     }
   };
 
   return (
     <div className="app">
+      {/* HINT: replace "false" with logic to display the 
+      score when the user has answered all the questions */}
       {showScore ? (
         <div className="score-section">
-          You scored {score} out of {questions.length}
+          You scored {countScore} out of {questions.length}
+          <button>Reset?</button>
         </div>
       ) : (
         <>
           <div className="question-section">
             <div className="question-count">
-              <span>Question {currentQuestion + 1}</span>/{questions.length}
+              <span>Question {changeQuestion + 1}</span>/{questions.length}
             </div>
             <div className="question-text">
-              {questions[currentQuestion].questionText}
+              {questions[changeQuestion].questionText}
             </div>
           </div>
           <div className="answer-section">
-            {questions[currentQuestion].answerOptions.map((answerOption, i) => (
+            {questions[changeQuestion].answerOptions.map((qAns, key) => (
               <button
-                key={i}
-                onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
+                key={key}
+                onClick={() => handleChangeQuestion(qAns.isCorrect)}
               >
-                {answerOption.answerText}
+                {qAns.answerText}
               </button>
             ))}
           </div>
